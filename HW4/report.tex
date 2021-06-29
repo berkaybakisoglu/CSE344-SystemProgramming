@@ -1,0 +1,19 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{HW4Report}
+\author{Berkay Bakisoglu 141044061 }
+
+\begin{document}
+
+\maketitle
+
+\section{Main}
+    It starts reader and students threads after getting all students informations.3 array provided to keep that variables and all of them sorted by speed,quality or price.After all threads assigned,it's loop starts work and wait for bufferfull semaphore to be sure that any homeworks passed by to buffer,then it waits for a readyworker semaphore,which provides it wait until a worker is ready.Then it finds suitable student for homework and assign it to it.If money cant afford among the waiting students,and there is an available students still can work with money that left,it waits for it until its available.
+\section{Reader Thread}
+   cheaterStudent function reads file char by char,and pass homeworks to buffer.Buffer is protected by a semaphore to prevent mutual exclusion.This thread is exits if all homeworks read,money has finished or program should be close by signal.
+\section{Student Thread}
+    All student threads gets their student information by passing to function.Then they post readyWorker semaphore,to provide information to main thread that,a worker is ready to work and you can send homeworks.Then it waits for its own semaphore,which will be post after homework assigned.It process the homework and sleep until this loops starts again.
+\section{Signal Handling}
+    CTRL - C Signal will not close the program suddenly,it simply waits that all working operation to be completed and waits at most max sleep time,and it closes like normal.
+\end{document}
